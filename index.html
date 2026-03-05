@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EHOUMAN MORENO Ivan — Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #07050f;
+    --bg2:     #0d0b1a;
+    --panel:   #110e22;
+    --panel2:  #170f2e;
+    --border:  #2a1f4a;
+    --border2: #4a2f8a;
+    --accent:  #a855f7;
+    --accent2: #f472b6;
+    --accent3: #38bdf8;
+    --text:    #e8deff;
+    --text2:   #a78bca;
+    --text3:   #5c4a80;
+    --glow:    0 0 24px rgba(168,85,247,0.4);
+    --glow2:   0 0 24px rgba(244,114,182,0.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+
+  /* CURSOR */
+  .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--accent),0 0 28px var(--accent);}
+  .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(168,85,247,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .14s ease;}
+
+  /* OVERLAYS */
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:9000;}
+  body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(168,85,247,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+  /* NOISE */
+  .noise{position:fixed;inset:0;opacity:.03;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(7,5,15,.93);border-bottom:1px solid var(--border);backdrop-filter:blur(14px);padding:0 2.5rem;height:62px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;color:var(--accent);text-shadow:var(--glow);letter-spacing:1px;}
+  .nav-logo span{color:var(--accent2);}
+  .nav-links{display:flex;list-style:none;}
+  .nav-links a{display:block;padding:.38rem .85rem;font-family:'Syne Mono',monospace;font-size:.66rem;color:var(--text3);text-decoration:none;letter-spacing:1px;border:1px solid transparent;transition:all .2s;text-transform:uppercase;}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent);border-color:var(--border2);background:rgba(168,85,247,.06);text-shadow:var(--glow);}
+  .nav-dot{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--accent2);display:flex;align-items:center;gap:.5rem;}
+  .nav-dot::before{content:'';width:7px;height:7px;background:var(--accent2);border-radius:50%;box-shadow:var(--glow2);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+
+  /* SECTIONS */
+  section{position:relative;z-index:2;min-height:100vh;padding:110px 4.5rem 5rem;}
+  .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:3rem;}
+  .section-num{font-family:'Syne Mono',monospace;font-size:.72rem;color:var(--accent);opacity:.5;}
+  .section-title{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--text);letter-spacing:2px;text-transform:uppercase;}
+  .section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* ====== HERO ====== */
+  #accueil{display:flex;flex-direction:column;justify-content:center;padding-top:62px;min-height:100vh;overflow:hidden;}
+  .hero-orb{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.18) 0%,transparent 70%);top:50%;right:-100px;transform:translateY(-50%);pointer-events:none;}
+  .hero-orb2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(244,114,182,.1) 0%,transparent 70%);bottom:-50px;left:200px;pointer-events:none;}
+  .hero-content{position:relative;z-index:2;max-width:820px;}
+  .hero-tag{font-family:'Syne Mono',monospace;font-size:.72rem;color:var(--accent2);letter-spacing:3px;margin-bottom:1.8rem;display:flex;align-items:center;gap:.8rem;}
+  .hero-tag::before{content:'◆';color:var(--accent);font-size:.5rem;}
+  .hero-name{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5.5vw,5rem);font-weight:800;line-height:.95;margin-bottom:.6rem;color:#fff;}
+  .hero-name .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:clamp(1rem,1.8vw,1.35rem);color:var(--text2);font-weight:300;letter-spacing:5px;text-transform:uppercase;margin-bottom:1.8rem;}
+  .hero-desc{font-size:.88rem;color:var(--text3);max-width:500px;line-height:2;margin-bottom:2.2rem;font-family:'Syne Mono',monospace;}
+  .hero-badges{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.2rem;}
+  .badge{padding:.28rem .85rem;border:1px solid var(--border2);font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:1px;background:rgba(168,85,247,.07);border-radius:2px;transition:all .2s;}
+  .badge:hover{background:rgba(168,85,247,.15);border-color:var(--accent);}
+  .hero-cta{display:flex;gap:1rem;}
+  .btn-primary{padding:.78rem 2rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-family:'Syne Mono',monospace;font-size:.76rem;letter-spacing:2px;text-decoration:none;text-transform:uppercase;cursor:none;transition:all .3s;border-radius:2px;box-shadow:0 4px 20px rgba(168,85,247,.3);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(168,85,247,.5);}
+  .btn-secondary{padding:.78rem 2rem;background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:'Syne Mono',monospace;font-size:.76rem;letter-spacing:2px;text-decoration:none;text-transform:uppercase;cursor:none;transition:all .3s;border-radius:2px;}
+  .btn-secondary:hover{border-color:var(--accent2);color:var(--accent2);}
+
+  /* TERMINAL */
+  .hero-terminal{position:absolute;right:4.5rem;top:50%;transform:translateY(-50%);width:375px;background:var(--panel);border:1px solid var(--border2);border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(168,85,247,.1);}
+  .terminal-bar{background:var(--panel2);border-bottom:1px solid var(--border);padding:.55rem 1rem;display:flex;align-items:center;gap:.5rem;font-size:.63rem;color:var(--text3);font-family:'Syne Mono',monospace;}
+  .t-dot{width:9px;height:9px;border-radius:50%;}
+  .t-dot.red{background:#ff5f56} .t-dot.yellow{background:#ffbd2e} .t-dot.green{background:#27c93f}
+  .terminal-body{padding:1.1rem;font-family:'Syne Mono',monospace;font-size:.7rem;line-height:2.1;color:var(--text2);}
+  .t-line{display:flex;gap:.5rem;}
+  .t-prompt{color:var(--accent2)} .t-cmd{color:var(--accent)} .t-out{color:var(--text3);padding-left:1rem} .t-val{color:var(--accent2)}
+  .t-cursor{display:inline-block;width:8px;height:13px;background:var(--accent);animation:pulse 1s infinite;vertical-align:middle;}
+
+  /* CARDS */
+  .info-card{background:var(--panel);border:1px solid var(--border);padding:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;border-radius:3px;}
+  .info-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),var(--accent2));}
+  .info-card:hover{border-color:var(--border2);transform:translateY(-3px);}
+  .card-label{font-family:'Syne Mono',monospace;font-size:.63rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;opacity:.8;}
+  .card-value{font-family:'Syne',sans-serif;font-size:1.05rem;color:var(--text);font-weight:700;margin-bottom:.3rem;}
+  .card-sub{font-size:.87rem;color:var(--text3);line-height:1.7;}
+
+  /* BTS */
+  #bts{background:linear-gradient(180deg,transparent,rgba(30,10,60,.25),transparent);}
+  .bts-intro{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.5rem 2rem;margin-bottom:2rem;font-size:.94rem;color:var(--text2);line-height:1.85;border-radius:0 3px 3px 0;}
+  .bts-intro strong{color:var(--accent);}
+  .options-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+  .option-block{background:var(--panel);border:1px solid var(--border);padding:1.5rem;position:relative;border-radius:3px;transition:border-color .2s;}
+  .option-block.active{border-color:var(--accent);background:rgba(168,85,247,.04);}
+  .option-block.active::after{content:'VOTRE OPTION';position:absolute;top:-1px;right:1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Syne Mono',monospace;font-size:.58rem;padding:.2rem .6rem;letter-spacing:1px;}
+  .option-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.4rem;color:var(--text2);}
+  .option-block.active .option-title{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .option-sub{font-size:.84rem;color:var(--text3);margin-bottom:1rem;font-style:italic;}
+  .option-list{list-style:none;font-size:.85rem;color:var(--text2);line-height:2.1;}
+  .option-list li::before{content:'◆ ';color:var(--accent);font-size:.5rem;vertical-align:middle;}
+
+  /* MISSIONS */
+  .missions-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:2rem;}
+  .tab-btn{padding:.45rem 1.1rem;background:transparent;border:1px solid var(--border);color:var(--text3);font-family:'Syne Mono',monospace;font-size:.65rem;letter-spacing:1px;cursor:none;transition:all .2s;text-transform:uppercase;border-radius:2px;}
+  .tab-btn.active,.tab-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(168,85,247,.07);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.1rem;}
+  .mission-card{background:var(--panel);border:1px solid var(--border);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;text-decoration:none;transition:all .25s;border-radius:3px;position:relative;overflow:hidden;}
+  .mission-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(168,85,247,.06),transparent);opacity:0;transition:opacity .2s;}
+  .mission-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 28px rgba(168,85,247,.15);}
+  .mission-card:hover::after{opacity:1;}
+  .mission-icon{font-size:1.45rem;flex-shrink:0;}
+  .mission-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.93rem;color:var(--text);line-height:1.4;}
+  .mission-arrow{margin-left:auto;color:var(--text3);font-size:.8rem;transition:color .2s;}
+  .mission-card:hover .mission-arrow{color:var(--accent);}
+
+  /* VEILLE */
+  .veille-layout{display:grid;grid-template-columns:270px 1fr;gap:2rem;}
+  .veille-sidebar{background:var(--panel);border:1px solid var(--border);padding:1.5rem;height:fit-content;border-radius:3px;}
+  .v-label{font-family:'Syne Mono',monospace;font-size:.63rem;color:var(--accent);letter-spacing:2px;margin-bottom:1rem;}
+  .veille-def{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent2);padding:1.1rem 1.4rem;margin-bottom:1rem;border-radius:0 3px 3px 0;}
+  .veille-def h3{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:.4rem;}
+  .veille-def p{font-size:.85rem;color:var(--text2);line-height:1.7;}
+  .article-group{margin-bottom:1.5rem;}
+  .article-group-title{font-family:'Syne Mono',monospace;font-size:.65rem;color:var(--accent);letter-spacing:2px;padding-bottom:.5rem;border-bottom:1px solid var(--border);margin-bottom:.8rem;}
+  .article-card{background:var(--panel);border:1px solid var(--border);padding:.95rem 1.2rem;display:flex;gap:1rem;align-items:flex-start;margin-bottom:.6rem;text-decoration:none;transition:border-color .2s;border-radius:3px;}
+  .article-card:hover{border-color:var(--border2);}
+  .article-card:hover .a-title{color:var(--accent);}
+  .a-icon{font-size:1rem;flex-shrink:0;margin-top:2px;}
+  .a-title{font-weight:600;font-size:.92rem;color:var(--text);transition:color .2s;line-height:1.4;}
+  .a-excerpt{font-size:.8rem;color:var(--text3);line-height:1.6;margin-top:.2rem;}
+
+  /* E4 */
+  .e4-main{background:var(--panel);border:1px solid var(--border);padding:2rem;margin-bottom:2rem;position:relative;border-radius:3px;overflow:hidden;}
+  .e4-main::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);}
+  .e4-context-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;background:linear-gradient(135deg,var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;}
+  .e4-context-text{font-size:.93rem;color:var(--text2);line-height:1.85;margin-bottom:1.5rem;}
+  .e4-link{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1.4rem;border:1px solid var(--accent2);color:var(--accent2);font-family:'Syne Mono',monospace;font-size:.7rem;letter-spacing:1px;text-decoration:none;transition:all .2s;border-radius:2px;}
+  .e4-link:hover{background:rgba(244,114,182,.08);}
+  .infra-box{background:var(--bg2);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;align-items:center;margin-top:1.5rem;border-radius:3px;}
+  .infra-node{background:var(--panel);border:1px solid var(--border2);padding:.6rem 1.4rem;font-family:'Syne Mono',monospace;font-size:.7rem;color:var(--text);text-align:center;min-width:190px;border-radius:2px;}
+  .infra-node.primary{border-color:var(--accent);color:var(--accent);}
+  .infra-node.secondary{border-color:var(--accent2);color:var(--accent2);}
+  .infra-arrow{color:var(--text3);font-size:1.2rem;}
+  .infra-row{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center;}
+
+  /* RESSOURCES */
+  .ressources-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  .ressource-group{background:var(--panel);border:1px solid var(--border);padding:1.5rem;border-radius:3px;}
+  .group-title{font-family:'Syne Mono',monospace;font-size:.67rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+  .ressource-item{display:flex;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(42,31,74,.4);text-decoration:none;transition:all .2s;cursor:none;}
+  .ressource-item:last-child{border-bottom:none;}
+  .ressource-item:hover .r-name{color:var(--accent);}
+  .r-icon{width:36px;height:36px;background:var(--panel2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;border-radius:2px;}
+  .r-name{font-weight:600;font-size:.93rem;color:var(--text);transition:color .2s;}
+  .r-type{font-family:'Syne Mono',monospace;font-size:.58rem;color:var(--text3);letter-spacing:1px;}
+  .r-badge{margin-left:auto;padding:.15rem .5rem;font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:1px;border-radius:2px;}
+  .r-badge.pdf{border:1px solid var(--accent3);color:var(--accent3);}
+  .r-badge.link{border:1px solid var(--accent2);color:var(--accent2);}
+  .r-badge.doc{border:1px solid var(--accent);color:var(--accent);}
+
+  /* CONTACT */
+  #contact{min-height:80vh;}
+  .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+  .contact-item{display:flex;align-items:center;gap:1rem;background:var(--panel);border:1px solid var(--border);padding:1.1rem 1.4rem;margin-bottom:1rem;transition:border-color .2s;border-radius:3px;}
+  .contact-item:hover{border-color:var(--border2);}
+  .contact-icon{font-size:1.3rem;width:38px;text-align:center;}
+  .contact-label{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--text3);letter-spacing:1px;margin-bottom:.2rem;}
+  .contact-val{font-weight:600;font-size:.97rem;color:var(--text);}
+  .contact-form{background:var(--panel);border:1px solid var(--border);padding:2rem;border-radius:3px;}
+  .form-row{margin-bottom:1.2rem;}
+  .form-label{font-family:'Syne Mono',monospace;font-size:.63rem;color:var(--accent);letter-spacing:2px;display:block;margin-bottom:.4rem;}
+  .form-input,.form-textarea{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:.7rem 1rem;font-family:'Syne Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s;border-radius:2px;}
+  .form-input:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 12px rgba(168,85,247,.15);}
+  .form-textarea{resize:vertical;min-height:100px;}
+  .form-submit{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-family:'Syne Mono',monospace;font-size:.78rem;letter-spacing:3px;text-transform:uppercase;cursor:none;transition:all .3s;border-radius:2px;box-shadow:0 4px 20px rgba(168,85,247,.3);}
+  .form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(168,85,247,.5);}
+
+  /* PROFIL CARD */
+  .profil-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem;}
+  .profil-item{background:var(--panel);border:1px solid var(--border);padding:1.2rem 1.5rem;border-radius:3px;transition:border-color .2s;}
+  .profil-item:hover{border-color:var(--border2);}
+  .profil-label{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--text3);letter-spacing:2px;margin-bottom:.3rem;}
+  .profil-value{font-weight:600;font-size:1rem;color:var(--text);}
+  .profil-bio{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent2);padding:1.5rem 2rem;font-size:.93rem;color:var(--text2);line-height:1.85;border-radius:0 3px 3px 0;margin-bottom:2rem;}
+
+  /* PARCOURS TIMELINE */
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:2rem;}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent);}
+  .timeline-item{position:relative;padding:0 0 2rem 2rem;}
+  .timeline-item::before{content:'◆';position:absolute;left:-1rem;top:.2rem;color:var(--accent);font-size:.6rem;}
+  .tl-period{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem;}
+  .tl-type{font-size:.75rem;color:var(--text3);margin-bottom:.2rem;text-transform:uppercase;letter-spacing:1px;}
+  .tl-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:.3rem;}
+  .tl-place{font-size:.85rem;color:var(--text3);}
+
+  /* FOOTER */
+  footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:1.5rem 4.5rem;display:flex;justify-content:space-between;align-items:center;font-family:'Syne Mono',monospace;font-size:.63rem;color:var(--text3);}
+
+  ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--border2)} ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+  @media(max-width:960px){
+    section{padding:90px 1.5rem 3rem;}
+    .hero-terminal{display:none;}
+    .options-row,.contact-layout,.ressources-grid,.profil-grid{grid-template-columns:1fr;}
+    .veille-layout{grid-template-columns:1fr;}
+    nav{padding:0 1rem;}
+    .nav-links a{padding:.38rem .4rem;font-size:.58rem;}
+    .nav-dot{display:none;}
+    footer{padding:1.5rem;flex-direction:column;gap:.5rem;}
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">EHOUMAN <span>I.</span></div>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#bts">BTS SIO</a></li>
+    <li><a href="#missions">Missions</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#e4">E4</a></li>
+    <li><a href="#ressources">Ressources</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-dot">ONLINE</div>
+</nav>
+
+<!-- ===== ACCUEIL ===== -->
+<section id="accueil">
+  <div class="hero-orb"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">BTS SIO — OPTION SISR — PORTFOLIO ÉTUDIANT</div>
+    <div class="hero-name">EHOUMAN MORENO<br><span class="hl">Ivan</span></div>
+    <div class="hero-sub">Solutions Infrastructures Systèmes &amp; Réseaux</div>
+    <p class="hero-desc">
+      // Étudiant en BTS SIO option SISR<br>
+      // Passionné par les réseaux &amp; la cybersécurité<br>
+      // Administration systèmes · Virtualisation
+    </p>
+    <div class="hero-badges">
+      <span class="badge">RÉSEAUX</span>
+      <span class="badge">LINUX</span>
+      <span class="badge">WINDOWS SERVER</span>
+      <span class="badge">CYBERSÉCURITÉ</span>
+      <span class="badge">VIRTUALISATION</span>
+      <span class="badge">ACTIVE DIRECTORY</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#missions" class="btn-primary">Voir mes missions</a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+  </div>
+
+  <div class="hero-terminal">
+    <div class="terminal-bar">
+      <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
+      <span style="margin-left:.6rem">bash — ivan@sisr:~</span>
+    </div>
+    <div class="terminal-body">
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">whoami</span></div>
+      <div class="t-out">→ <span class="t-val">Ivan EHOUMAN MORENO</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat formation.txt</span></div>
+      <div class="t-out">→ <span class="t-val">BTS SIO — Option SISR</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat profil.txt</span></div>
+      <div class="t-out">→ <span class="t-val">Né le : 24/12/2006</span></div>
+      <div class="t-out">→ <span class="t-val">Email : ivannn242006@gmail.com</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">ls skills/</span></div>
+      <div class="t-out">→ <span class="t-val">réseau/ linux/ sécurité/ windows/</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">status --portfolio<span class="t-cursor"></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MON PROFIL ===== -->
+<section id="mon-profil" style="min-height:auto;padding-bottom:0;">
+  <div class="section-header reveal">
+    <span class="section-num">//</span>
+    <h2 class="section-title" style="font-size:1.4rem;">Mon Profil</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="profil-grid reveal">
+    <div class="profil-item">
+      <div class="profil-label">NOM / Prénom</div>
+      <div class="profil-value">EHOUMAN MORENO Ivan</div>
+    </div>
+    <div class="profil-item">
+      <div class="profil-label">Date de Naissance</div>
+      <div class="profil-value">24/12/2006</div>
+    </div>
+    <div class="profil-item">
+      <div class="profil-label">Email</div>
+      <div class="profil-value">ivannn242006@gmail.com</div>
+    </div>
+    <div class="profil-item">
+      <div class="profil-label">Formation</div>
+      <div class="profil-value">BTS SIO — Option SISR</div>
+    </div>
+  </div>
+
+  <div class="profil-bio reveal">
+    Je suis Ivan EHOUMAN MORENO, actuellement étudiant en BTS SIO (Services Informatiques aux Organisations) – Option SISR (Solutions d'Infrastructure Systèmes et Réseaux).<br><br>
+    Passionné du monde informatique, j'ai décidé de suivre cette formation afin d'acquérir de nouvelles compétences et des connaissances sur la gestion et la sécurité de parcs informatiques, pour espérer en faire mon futur métier.
+  </div>
+</section>
+
+<!-- ===== BTS SIO ===== -->
+<section id="bts">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">BTS SIO</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="bts-intro reveal">
+    Le <strong>Brevet de Technicien Supérieur (BTS) Services Informatiques aux Organisations (SIO)</strong> s'adresse à ceux qui souhaitent se former en deux ans (reconnu par l'état de niveau <strong>Bac+2</strong>) aux métiers d'administrateur réseau ou de développeur pour intégrer directement le marché du travail ou continuer des études. Il associe enseignements théoriques et professionnels ainsi que <strong>deux stages en entreprise</strong> (10 à 11 semaines réparties sur les deux années d'études).
+  </div>
+
+  <div class="options-row reveal">
+    <div class="option-block">
+      <div class="option-title">SLAM</div>
+      <div class="option-sub">Solutions Logicielles et Applications Métiers</div>
+      <ul class="option-list">
+        <li>Développeur d'applications informatiques</li>
+        <li>Analyste d'applications ou d'études</li>
+        <li>Chargé d'études informatiques</li>
+        <li>Responsable des services applicatifs</li>
+        <li>Programmeur d'applications</li>
+      </ul>
+    </div>
+    <div class="option-block active">
+      <div class="option-title">SISR</div>
+      <div class="option-sub">Solutions d'Infrastructure, Systèmes et Réseaux</div>
+      <ul class="option-list">
+        <li>Administrateur systèmes et réseaux</li>
+        <li>Informaticien support et déploiement</li>
+        <li>Pilote d'exploitation</li>
+        <li>Support systèmes et réseaux</li>
+        <li>Technicien d'infrastructure</li>
+        <li>Technicien micro et réseaux</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Parcours -->
+  <div class="section-header reveal" style="margin-top:3rem;">
+    <span class="section-num">//</span>
+    <h3 class="section-title" style="font-size:1.2rem;">Parcours</h3>
+    <div class="section-line"></div>
+  </div>
+  <p class="reveal" style="font-size:.82rem;color:var(--text3);margin-bottom:1.8rem;font-family:'Syne Mono',monospace;">// Les formations effectuées et diplômes obtenus</p>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="tl-period">En cours</div>
+      <div class="tl-type">Étude Supérieure</div>
+      <div class="tl-title">BTS SIO — Option SISR</div>
+      <div class="tl-place">À compléter avec votre établissement</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-period">Avant le BTS</div>
+      <div class="tl-type">Lycée</div>
+      <div class="tl-title">Baccalauréat</div>
+      <div class="tl-place">À compléter avec votre lycée</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MISSIONS ===== -->
+<section id="missions">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Missions BTS SIO</h2>
+    <div class="section-line"></div>
+  </div>
+  <p class="reveal" style="font-size:.82rem;color:var(--text3);margin-bottom:1.5rem;font-family:'Syne Mono',monospace;">// Regroupement des missions effectuées durant les années de BTS SIO (Option SISR)</p>
+
+  <div class="missions-tabs reveal">
+    <button class="tab-btn active" data-tab="services">Services</button>
+    <button class="tab-btn" data-tab="securite">Sécurité &amp; Dynamisme</button>
+    <button class="tab-btn" data-tab="tolerance">Tolérance de Panne</button>
+    <button class="tab-btn" data-tab="continuite">Continuité &amp; Qualité</button>
+    <button class="tab-btn" data-tab="supervision">Supervision</button>
+  </div>
+
+  <div class="tab-panel active reveal" id="tab-services">
+    <a href="#" class="mission-card"><div class="mission-icon">🪟</div><div class="mission-name">Active Directory et Contrôleur de Domaine</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🌐</div><div class="mission-name">Domain Name System (DNS)</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">📡</div><div class="mission-name">Serveur et pools DHCP</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">☁️</div><div class="mission-name">Serveur de Virtualisation ESXi</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">💻</div><div class="mission-name">Activité Powershell</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🔍</div><div class="mission-name">DNS Avancé</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🔁</div><div class="mission-name">DHCP et Agent Relais</div><span class="mission-arrow">↗</span></a>
+  </div>
+
+  <div class="tab-panel" id="tab-securite">
+    <a href="#" class="mission-card"><div class="mission-icon">🔀</div><div class="mission-name">Réseau Virtuel VLAN</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🖧</div><div class="mission-name">Protocole VTP</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🔐</div><div class="mission-name">Sécurité des Échanges (HTTPS)</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🛡️</div><div class="mission-name">Authentification Radius</div><span class="mission-arrow">↗</span></a>
+  </div>
+
+  <div class="tab-panel" id="tab-tolerance">
+    <a href="#" class="mission-card"><div class="mission-icon">☁️</div><div class="mission-name">Cluster ESXi</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🔄</div><div class="mission-name">Cluster de Basculement DHCP</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🌳</div><div class="mission-name">Protocole STP</div><span class="mission-arrow">↗</span></a>
+  </div>
+
+  <div class="tab-panel" id="tab-continuite">
+    <a href="#" class="mission-card"><div class="mission-icon">📊</div><div class="mission-name">Quality of Service (QOS)</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🖥️</div><div class="mission-name">Service BROKER TSE</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🗺️</div><div class="mission-name">Routage Dynamique (OSPF)</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">⚡</div><div class="mission-name">Protocole HSRP</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">📦</div><div class="mission-name">Déploiement WDS</div><span class="mission-arrow">↗</span></a>
+  </div>
+
+  <div class="tab-panel" id="tab-supervision">
+    <a href="#" class="mission-card"><div class="mission-icon">🔎</div><div class="mission-name">OCS Inventory</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">🎫</div><div class="mission-name">Gestionnaire GLPI</div><span class="mission-arrow">↗</span></a>
+    <a href="#" class="mission-card"><div class="mission-icon">👁️</div><div class="mission-name">Outil Eyes of Network</div><span class="mission-arrow">↗</span></a>
+  </div>
+</section>
+
+<!-- ===== VEILLE ===== -->
+<section id="veille">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Veille Technologique</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="reveal" style="background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);padding:2rem;border-radius:0 3px 3px 0;">
+    <p style="font-family:'Syne Mono',monospace;font-size:.82rem;color:var(--text3);">// Contenu à venir — ajoutez ici votre thème de veille et vos articles</p>
+  </div>
+</section>
+
+<!-- ===== E4 ===== -->
+<section id="e4">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Épreuve E4</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="e4-main reveal">
+    <div class="e4-context-title">Cluster de Basculement DHCP (étendues)</div>
+    <p class="e4-context-text">
+      À la suite d'une panne liée au serveur DHCP, l'ensemble de la société a été paralysée, empêchant ainsi les salariés d'effectuer leur travail et d'accéder à leurs réseaux. Le DSI m'a contacté pour lui proposer une solution permettant d'assurer une tolérance des pannes et de garantir une continuité de service. Pour cela, j'ai proposé une solution de « cluster de basculement d'étendues DHCP » où un serveur DHCP secondaire prend le relais en cas de panne sur le serveur DHCP principal.
+    </p>
+    <a href="#" class="e4-link">📄 Annexe E4 — DHCP (.PDF)</a>
+
+    <div class="infra-box">
+      <div class="infra-node">Réseau LAN — Entreprise</div>
+      <div class="infra-arrow">↕</div>
+      <div class="infra-row">
+        <div class="infra-node primary">Serveur DHCP Principal</div>
+        <div style="color:var(--text3);font-family:'Syne Mono',monospace;font-size:.68rem;">⟷ BASCULEMENT ⟷</div>
+        <div class="infra-node secondary">Serveur DHCP Secondaire</div>
+      </div>
+      <div class="infra-arrow">↑</div>
+      <div class="infra-node" style="font-size:.68rem;color:var(--text3);">Cluster de basculement d'étendues DHCP</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESSOURCES ===== -->
+<section id="ressources">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Ressources</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="reveal" style="background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);padding:2rem;border-radius:0 3px 3px 0;">
+    <p style="font-family:'Syne Mono',monospace;font-size:.82rem;color:var(--text3);">// Contenu à venir — ajoutez ici vos documents (CV, rapports de stage, notes de révision...)</p>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-layout reveal">
+    <div>
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div><div class="contact-label">EMAIL</div><div class="contact-val">ivannn242006@gmail.com</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><div class="contact-label">TÉLÉPHONE</div><div class="contact-val">À compléter</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-label">LOCALISATION</div><div class="contact-val">France</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🎂</div>
+        <div><div class="contact-label">DATE DE NAISSANCE</div><div class="contact-val">24 / 12 / 2006</div></div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <label class="form-label">// NOM *</label>
+        <input class="form-input" type="text" placeholder="Votre nom">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// EMAIL *</label>
+        <input class="form-input" type="email" placeholder="votre@email.fr">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// OBJET *</label>
+        <input class="form-input" type="text" placeholder="Sujet de votre message">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// MESSAGE *</label>
+        <textarea class="form-textarea" placeholder="Votre message..."></textarea>
+      </div>
+      <p style="font-family:'Syne Mono',monospace;font-size:.6rem;color:var(--text3);margin-bottom:1rem;">* Les champs marqués d'un astérisque sont obligatoires.</p>
+      <button class="form-submit">Envoyer le message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 — EHOUMAN MORENO Ivan — BTS SIO SISR</div>
+  <div style="color:var(--accent2);">ONLINE ◆</div>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function loop(){
+    rx+=(mx-rx)*.14; ry+=(my-ry)*.14;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+
+  // REVEAL
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*60); });
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  // NAV ACTIVE
+  const secs=document.querySelectorAll('section[id]');
+  const links=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-100) cur=s.id; });
+    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  });
+
+  // TABS
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
