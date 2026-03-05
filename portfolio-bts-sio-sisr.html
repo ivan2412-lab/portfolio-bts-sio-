@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0e;
+    --bg2: #080f14;
+    --panel: #0a1520;
+    --panel2: #0d1c2a;
+    --border: #0e3a52;
+    --border2: #1a5a7a;
+    --accent: #00d4ff;
+    --accent2: #00ff88;
+    --accent3: #ff6b35;
+    --text: #c8e8f5;
+    --text2: #7ab8d4;
+    --text3: #3a7a9c;
+    --glow: 0 0 20px rgba(0,212,255,0.3);
+    --glow2: 0 0 20px rgba(0,255,136,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,212,255,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* SCANLINES OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.05) 2px,
+      rgba(0,0,0,0.05) 4px
+    );
+    pointer-events: none;
+    z-index: 9000;
+  }
+
+  /* GRID BG */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(5,10,14,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-shadow: var(--glow);
+    letter-spacing: 2px;
+  }
+  .nav-logo span { color: var(--accent2); }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.4rem 0.9rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text3);
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+    border-color: var(--border);
+    text-shadow: var(--glow);
+    background: rgba(0,212,255,0.05);
+  }
+
+  .nav-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-status::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--accent2);
+    border-radius: 50%;
+    box-shadow: var(--glow2);
+    animation: blink 2s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ========== SECTIONS ========== */
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 100px 4rem 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    opacity: 0.6;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border2), transparent);
+  }
+
+  /* ========== HERO ========== */
+  #accueil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 60px;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,80,120,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,60,90,0.1) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: '> ';
+    color: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(0,212,255,0.2);
+  }
+
+  .hero-name .highlight {
+    color: var(--accent);
+    text-shadow: var(--glow);
+  }
+
+  .hero-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: var(--text2);
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--text3);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .badge {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--border2);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    background: rgba(0,212,255,0.05);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary:hover { color: var(--bg); }
+
+  .btn-secondary {
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+  .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* TERMINAL SIDE */
+  .hero-terminal {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .terminal-bar {
+    background: var(--panel2);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--text3);
+  }
+
+  .t-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .t-dot.red { background: #ff5f56; }
+  .t-dot.yellow { background: #ffbd2e; }
+  .t-dot.green { background: #27c93f; }
+
+  .terminal-body {
+    padding: 1rem;
+    font-size: 0.72rem;
+    line-height: 2;
+    color: var(--text2);
+  }
+
+  .t-line { display: flex; gap: 0.5rem; }
+  .t-prompt { color: var(--accent2); }
+  .t-cmd { color: var(--accent); }
+  .t-out { color: var(--text3); padding-left: 1rem; }
+  .t-val { color: var(--accent2); }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--accent);
+    animation: blink 1s infinite;
+    vertical-align: middle;
+  }
+
+  /* ========== BTS SIO ========== */
+  #bts {
+    background: linear-gradient(180deg, transparent, rgba(0,30,50,0.3), transparent);
+  }
+
+  .bts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    box-shadow: var(--glow);
+  }
+  .info-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+  }
+
+  .card-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .card-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .card-sub {
+    font-size: 0.85rem;
+    color: var(--text3);
+    margin-top: 0.3rem;
+    line-height: 1.6;
+  }
+
+  .options-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .option-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .option-block.active {
+    border-color: var(--accent);
+    background: rgba(0,212,255,0.05);
+  }
+
+  .option-block.active::after {
+    content: 'VOTRE OPTION';
+    position: absolute;
+    top: -1px; right: 1rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .option-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .option-block.active .option-title { color: var(--accent); text-shadow: var(--glow); }
+
+  .option-list {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text2);
+    line-height: 2;
+  }
+  .option-list li::before { content: '▸ '; color: var(--accent); }
+
+  /* ========== MISSIONS ========== */
+  .missions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .mission-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .mission-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,212,255,0.1);
+  }
+
+  .mission-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .mission-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .mission-desc {
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .mission-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border2);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .mission-num {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(0,212,255,0.06);
+    line-height: 1;
+  }
+
+  /* ========== VEILLE ========== */
+  .veille-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+
+  .veille-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .topic-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    cursor: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .topic-item.active, .topic-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,255,0.05);
+  }
+
+  .topic-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .veille-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .article-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .article-card:hover { border-color: var(--border2); }
+
+  .article-date {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin-top: 0.3rem;
+  }
+
+  .article-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .article-excerpt {
+    font-size: 0.85rem;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+
+  /* ========== E4 ========== */
+  .e4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .e4-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .e4-card:hover {
+    border-color: var(--accent2);
+    box-shadow: 0 0 20px rgba(0,255,136,0.1);
+  }
+
+  .e4-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .e4-card:hover::before { opacity: 1; }
+
+  .e4-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .e4-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    margin-bottom: 0.4rem;
+  }
+
+  .e4-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .e4-desc {
+    font-size: 0.85rem;
+    color: var(--text3);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    box-shadow: 0 0 8px var(--accent2);
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text3);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ========== RESSOURCES ========== */
+  .ressources-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .ressource-group {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .group-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ressource-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(14,58,82,0.4);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .ressource-item:last-child { border-bottom: none; }
+  .ressource-item:hover .r-name { color: var(--accent); }
+
+  .r-icon {
+    width: 36px; height: 36px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .r-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  .r-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .r-badge {
+    margin-left: auto;
+    padding: 0.15rem 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+  .r-badge.pdf { border: 1px solid var(--accent3); color: var(--accent3); }
+  .r-badge.link { border: 1px solid var(--accent2); color: var(--accent2); }
+  .r-badge.doc { border: 1px solid var(--accent); color: var(--accent); }
+
+  /* ========== CONTACT ========== */
+  #contact {
+    min-height: 80vh;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: var(--border2); }
+
+  .contact-icon {
+    font-size: 1.4rem;
+    width: 40px;
+    text-align: center;
+  }
+
+  .contact-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-val {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .contact-form {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+
+  .form-row {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.7rem 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(0,212,255,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+  .form-submit:hover::before { transform: translateY(0); }
+  .form-submit:hover { color: var(--bg); }
+
+  /* ========== FOOTER ========== */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text3);
+  }
+
+  /* ========== SCROLL ANIMATIONS ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== CORNER DECORATION ========== */
+  .corner-deco {
+    position: absolute;
+    width: 30px; height: 30px;
+    pointer-events: none;
+  }
+  .corner-deco.tl { top: 0; left: 0; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+  .corner-deco.tr { top: 0; right: 0; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+  .corner-deco.bl { bottom: 0; left: 0; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+  .corner-deco.br { bottom: 0; right: 0; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+  /* ========== SCROLLBAR ========== */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    section { padding: 90px 1.5rem 3rem; }
+    .hero-terminal { display: none; }
+    .bts-grid, .options-row, .e4-grid, .contact-layout, .ressources-layout { grid-template-columns: 1fr; }
+    .veille-layout { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.6rem; }
+    .nav-status { display: none; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">P<span>.</span>FOLIO</div>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#bts">BTS SIO</a></li>
+    <li><a href="#missions">Missions</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#e4">E4</a></li>
+    <li><a href="#ressources">Ressources</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">SYS_ONLINE</div>
+</nav>
+
+<!-- ===== ACCUEIL ===== -->
+<section id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">BTS SIO — OPTION SISR — PORTFOLIO ÉTUDIANT</div>
+    <div class="hero-name">PRÉNOM<br><span class="highlight">NOM</span></div>
+    <div class="hero-sub">Solutions Infrastructures Systèmes et Réseaux</div>
+    <p class="hero-desc">// Étudiant en BTS SIO option SISR<br>// Passionné par les réseaux, la cybersécurité<br>// et l'administration systèmes</p>
+    <div class="hero-badges">
+      <span class="badge">RÉSEAU</span>
+      <span class="badge">LINUX</span>
+      <span class="badge">WINDOWS SERVER</span>
+      <span class="badge">CYBERSÉCURITÉ</span>
+      <span class="badge">VIRTUALISATION</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#missions" class="btn-primary">Voir mes missions</a>
+      <a href="#contact" class="btn-secondary">Me contacter</a>
+    </div>
+  </div>
+
+  <div class="hero-terminal">
+    <div class="terminal-bar">
+      <span class="t-dot red"></span>
+      <span class="t-dot yellow"></span>
+      <span class="t-dot green"></span>
+      <span style="margin-left:0.5rem">bash — étudiant@sisr:~</span>
+    </div>
+    <div class="terminal-body">
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">whoami</span></div>
+      <div class="t-out">→ <span class="t-val">Prénom NOM</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat formation.txt</span></div>
+      <div class="t-out">→ <span class="t-val">BTS SIO — SISR</span></div>
+      <div class="t-out">→ <span class="t-val">Établissement</span></div>
+      <div class="t-out">→ <span class="t-val">20XX — 20XX</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">ls skills/</span></div>
+      <div class="t-out">→ <span class="t-val">réseau/ linux/ sécurité/ windows/</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">ping recruteur<span class="t-cursor"></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BTS SIO ===== -->
+<section id="bts">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">BTS SIO</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="bts-grid reveal">
+    <div class="info-card">
+      <div class="corner-deco tl"></div><div class="corner-deco br"></div>
+      <div class="card-label">Diplôme</div>
+      <div class="card-value">BTS SIO</div>
+      <div class="card-sub">Brevet de Technicien Supérieur<br>Services Informatiques aux Organisations</div>
+    </div>
+    <div class="info-card">
+      <div class="corner-deco tl"></div><div class="corner-deco br"></div>
+      <div class="card-label">Établissement</div>
+      <div class="card-value">Nom de l'établissement</div>
+      <div class="card-sub">Ville — Académie<br>20XX — 20XX</div>
+    </div>
+  </div>
+
+  <div class="options-row reveal">
+    <div class="option-block">
+      <div class="option-title" style="color:var(--text2)">SLAM</div>
+      <div class="card-sub" style="margin-bottom:0.8rem">Solutions Logicielles et Applications Métiers</div>
+      <ul class="option-list">
+        <li>Développement d'applications</li>
+        <li>Bases de données</li>
+        <li>Gestion de projets logiciels</li>
+        <li>Cybersécurité applicative</li>
+      </ul>
+    </div>
+    <div class="option-block active">
+      <div class="option-title">SISR</div>
+      <div class="card-sub" style="margin-bottom:0.8rem">Solutions Infrastructures Systèmes et Réseaux</div>
+      <ul class="option-list">
+        <li>Administration systèmes (Linux / Windows)</li>
+        <li>Infrastructure réseau et protocoles</li>
+        <li>Cybersécurité et supervision</li>
+        <li>Virtualisation et cloud</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MISSIONS ===== -->
+<section id="missions">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Missions & Projets</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="missions-grid">
+    <div class="mission-card reveal">
+      <div class="mission-num">01</div>
+      <div class="mission-icon">🖧</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">RÉSEAU</span>
+        <span class="tag">CISCO</span>
+        <span class="tag">VLAN</span>
+      </div>
+    </div>
+
+    <div class="mission-card reveal">
+      <div class="mission-num">02</div>
+      <div class="mission-icon">🐧</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">LINUX</span>
+        <span class="tag">APACHE</span>
+        <span class="tag">SSH</span>
+      </div>
+    </div>
+
+    <div class="mission-card reveal">
+      <div class="mission-num">03</div>
+      <div class="mission-icon">🔐</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">SÉCURITÉ</span>
+        <span class="tag">FIREWALL</span>
+        <span class="tag">VPN</span>
+      </div>
+    </div>
+
+    <div class="mission-card reveal">
+      <div class="mission-num">04</div>
+      <div class="mission-icon">🪟</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">WINDOWS SERVER</span>
+        <span class="tag">ACTIVE DIRECTORY</span>
+      </div>
+    </div>
+
+    <div class="mission-card reveal">
+      <div class="mission-num">05</div>
+      <div class="mission-icon">☁️</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">VIRTUALISATION</span>
+        <span class="tag">VMWARE</span>
+        <span class="tag">PROXMOX</span>
+      </div>
+    </div>
+
+    <div class="mission-card reveal">
+      <div class="mission-num">06</div>
+      <div class="mission-icon">📡</div>
+      <div class="mission-title">Titre de la mission</div>
+      <p class="mission-desc">Décrivez ici votre mission ou projet. Contexte, objectifs, résultats obtenus. Remplacez ce texte par votre propre contenu.</p>
+      <div class="mission-tags">
+        <span class="tag">SUPERVISION</span>
+        <span class="tag">NAGIOS</span>
+        <span class="tag">ZABBIX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VEILLE ===== -->
+<section id="veille">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Veille Technologique</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="veille-layout reveal">
+    <div class="veille-topics">
+      <div class="topic-item active">
+        <span class="topic-dot"></span>CYBERSÉCURITÉ
+      </div>
+      <div class="topic-item">
+        <span class="topic-dot"></span>CLOUD & VIRTUALISATION
+      </div>
+      <div class="topic-item">
+        <span class="topic-dot"></span>RÉSEAUX
+      </div>
+      <div class="topic-item">
+        <span class="topic-dot"></span>LINUX / OPEN SOURCE
+      </div>
+      <div class="topic-item">
+        <span class="topic-dot"></span>WINDOWS SERVER
+      </div>
+      <div class="topic-item">
+        <span class="topic-dot"></span>AUTRE THÈME
+      </div>
+    </div>
+
+    <div class="veille-content">
+      <div class="article-card">
+        <div class="article-date">JAN 2025</div>
+        <div>
+          <div class="article-title">Titre de votre article de veille</div>
+          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille. Décrivez ce que vous avez appris et en quoi c'est pertinent pour votre domaine.</div>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-date">FÉV 2025</div>
+        <div>
+          <div class="article-title">Titre de votre article de veille</div>
+          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille. Décrivez ce que vous avez appris et en quoi c'est pertinent pour votre domaine.</div>
+        </div>
+      </div>
+      <div class="article-card">
+        <div class="article-date">MAR 2025</div>
+        <div>
+          <div class="article-title">Titre de votre article de veille</div>
+          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille. Décrivez ce que vous avez appris et en quoi c'est pertinent pour votre domaine.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== E4 ===== -->
+<section id="e4">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Épreuve E4</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="e4-grid">
+    <div class="e4-card reveal">
+      <div class="e4-icon">⚙️</div>
+      <div class="e4-num">BLOC 1</div>
+      <div class="e4-title">Support et mise à disposition de services informatiques</div>
+      <div class="e4-desc">Gérer le patrimoine informatique, répondre aux incidents, accompagner les utilisateurs.</div>
+      <div class="progress-label"><span>Maîtrise</span><span>80%</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+    </div>
+
+    <div class="e4-card reveal">
+      <div class="e4-icon">🌐</div>
+      <div class="e4-num">BLOC 2</div>
+      <div class="e4-title">Cybersécurité des services informatiques</div>
+      <div class="e4-desc">Protéger les données, maintenir et développer un système sécurisé, garantir la disponibilité.</div>
+      <div class="progress-label"><span>Maîtrise</span><span>70%</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+    </div>
+
+    <div class="e4-card reveal">
+      <div class="e4-icon">📋</div>
+      <div class="e4-num">BLOC 3</div>
+      <div class="e4-title">Gestion des données — Travail en mode projet</div>
+      <div class="e4-desc">Concevoir une solution technique, organiser son propre travail en mode projet.</div>
+      <div class="progress-label"><span>Maîtrise</span><span>75%</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem" class="reveal">
+    <div class="info-card" style="max-width:600px">
+      <div class="corner-deco tl"></div><div class="corner-deco br"></div>
+      <div class="card-label">Tableau de synthèse E4</div>
+      <div class="card-sub">Retrouvez ici le tableau récapitulatif de vos activités professionnelles, les compétences mobilisées et les preuves associées. Vous pouvez ajouter un lien vers votre tableau ou l'intégrer directement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESSOURCES ===== -->
+<section id="ressources">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Ressources</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ressources-layout reveal">
+    <div class="ressource-group">
+      <div class="group-title">// Documents officiels</div>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">📄</div>
+        <div>
+          <div class="r-name">CV</div>
+          <div class="r-type">Curriculum Vitae</div>
+        </div>
+        <span class="r-badge pdf">PDF</span>
+      </a>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">📑</div>
+        <div>
+          <div class="r-name">Lettre de motivation</div>
+          <div class="r-type">Stage / Alternance</div>
+        </div>
+        <span class="r-badge pdf">PDF</span>
+      </a>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">📊</div>
+        <div>
+          <div class="r-name">Tableau de synthèse E4</div>
+          <div class="r-type">Activités professionnelles</div>
+        </div>
+        <span class="r-badge doc">DOC</span>
+      </a>
+    </div>
+
+    <div class="ressource-group">
+      <div class="group-title">// Rapports & Livrables</div>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">📋</div>
+        <div>
+          <div class="r-name">Rapport de stage — 1ère année</div>
+          <div class="r-type">Entreprise — Période</div>
+        </div>
+        <span class="r-badge pdf">PDF</span>
+      </a>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">📋</div>
+        <div>
+          <div class="r-name">Rapport de stage — 2ème année</div>
+          <div class="r-type">Entreprise — Période</div>
+        </div>
+        <span class="r-badge pdf">PDF</span>
+      </a>
+      <a href="#" class="ressource-item">
+        <div class="r-icon">🔗</div>
+        <div>
+          <div class="r-name">GitHub / Dépôt de projets</div>
+          <div class="r-type">Code source & documentation</div>
+        </div>
+        <span class="r-badge link">LINK</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-layout reveal">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label">EMAIL</div>
+          <div class="contact-val">votre@email.fr</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">TÉLÉPHONE</div>
+          <div class="contact-val">+33 6 XX XX XX XX</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">LOCALISATION</div>
+          <div class="contact-val">Ville, Région</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">LINKEDIN</div>
+          <div class="contact-val">linkedin.com/in/votrenom</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <label class="form-label">// NOM</label>
+        <input class="form-input" type="text" placeholder="Votre nom">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// EMAIL</label>
+        <input class="form-input" type="email" placeholder="votre@email.fr">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// OBJET</label>
+        <input class="form-input" type="text" placeholder="Sujet de votre message">
+      </div>
+      <div class="form-row">
+        <label class="form-label">// MESSAGE</label>
+        <textarea class="form-textarea" placeholder="Votre message..."></textarea>
+      </div>
+      <button class="form-submit">Envoyer le message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 — PRÉNOM NOM — BTS SIO SISR</div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text3)">PORTFOLIO v1.0 — BUILD STABLE</div>
+  <div style="color:var(--accent2)">SYS_ONLINE ■</div>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+
+  // NAV ACTIVE
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--accent)' : '';
+    });
+  });
+
+  // VEILLE TABS
+  document.querySelectorAll('.topic-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.topic-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
