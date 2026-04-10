@@ -209,6 +209,28 @@
   /* FOOTER */
   footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:1.5rem 4.5rem;display:flex;justify-content:space-between;align-items:center;font-family:'Syne Mono',monospace;font-size:.63rem;color:var(--text3);}
 
+  /* ── VEILLE IA ── */
+  .v-src-chip{display:flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid rgba(255,255,255,.06);border-radius:2px;font-size:.68rem;font-family:'Syne Mono',monospace;color:var(--text3);background:rgba(255,255,255,.02);}
+  .v-filter{padding:4px 14px;border:1px solid var(--border);background:transparent;color:var(--text3);font-family:'Syne Mono',monospace;font-size:.65rem;letter-spacing:.06em;cursor:none;border-radius:2px;transition:all .2s;text-transform:uppercase;}
+  .v-filter:hover{border-color:var(--border2);color:var(--accent);}
+  .v-filter.active{background:rgba(168,85,247,.1);border-color:var(--accent);color:var(--accent);}
+  .v-card{background:var(--bg);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:background .2s;}
+  .v-card:hover{background:rgba(168,85,247,.04);}
+  .v-card-src{display:flex;align-items:center;gap:7px;}
+  .v-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block;}
+  .v-card-src span:last-child{font-family:'Syne Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);}
+  .v-card-title{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.45;}
+  .v-card:hover .v-card-title{color:var(--accent);}
+  .v-card-desc{font-size:.75rem;color:var(--text3);line-height:1.55;flex:1;}
+  .v-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+  .v-date{font-family:'Syne Mono',monospace;font-size:.62rem;color:rgba(92,74,128,.7);}
+  .v-tag{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;}
+  .v-llm{background:rgba(127,119,221,.12);color:#a09ae0;border:1px solid rgba(127,119,221,.2);}
+  .v-sec{background:rgba(216,90,48,.12);color:#e08060;border:1px solid rgba(216,90,48,.2);}
+  .v-out{background:rgba(29,158,117,.12);color:#3ecf95;border:1px solid rgba(29,158,117,.2);}
+  .v-rec{background:rgba(55,138,221,.12);color:#60a8e8;border:1px solid rgba(55,138,221,.2);}
+  .v-inf{background:rgba(186,117,23,.12);color:#d4a040;border:1px solid rgba(186,117,23,.2);}
+
   ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--border2)} ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
   @media(max-width:960px){
@@ -282,7 +304,7 @@
       <div class="t-out">→ <span class="t-val">BTS SIO — Option SISR</span></div>
       <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat profil.txt</span></div>
       <div class="t-out">→ <span class="t-val">Né le : 24/12/2006</span></div>
-      <div class="t-out">→ <span class="t-val">Email : ivannn242006@gmail.com</span></div>
+      <div class="t-out">→ <span class="t-val">Email : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90f9e6f1fefefea2a4a2a0a0a6d0f7fdf1f9fcbef3fffd">[email&#160;protected]</a></span></div>
       <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">ls skills/</span></div>
       <div class="t-out">→ <span class="t-val">réseau/ linux/ sécurité/ windows/</span></div>
       <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">status --portfolio<span class="t-cursor"></span></span></div>
@@ -309,7 +331,7 @@
     </div>
     <div class="profil-item">
       <div class="profil-label">Email</div>
-      <div class="profil-value">ivannn242006@gmail.com</div>
+      <div class="profil-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78e9186898989d5d3d5d7d7d1a7808a868e8bc984888a">[email&#160;protected]</a></div>
     </div>
     <div class="profil-item">
       <div class="profil-label">Formation</div>
@@ -448,9 +470,88 @@
     <div class="section-line"></div>
   </div>
 
-  <div class="reveal" style="background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--accent);padding:2rem;border-radius:0 3px 3px 0;">
-    <p style="font-family:'Syne Mono',monospace;font-size:.82rem;color:var(--text3);">// Contenu à venir — ajoutez ici votre thème de veille et vos articles</p>
+  <p class="reveal" style="font-family:'Syne Mono',monospace;font-size:.75rem;color:var(--text3);margin-bottom:1.5rem;">// Th&egrave;me : Intelligence Artificielle &mdash; LLM &middot; S&eacute;curit&eacute; IA &middot; Outils &middot; Recherche &middot; Infrastructure</p>
+
+  <div class="reveal" style="display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.07);border:1px solid var(--border2);padding:6px 18px;border-radius:2px;font-size:.72rem;font-family:'Syne Mono',monospace;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;"><span style="font-size:.55rem;">&#9658;</span> Intelligence Artificielle &amp; Syst&egrave;mes</div>
+
+  <div class="reveal" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;">
+    <div class="v-src-chip"><span class="v-dot" style="background:#7f77dd"></span>OpenAI Blog</div>
+    <div class="v-src-chip"><span class="v-dot" style="background:#378add"></span>MIT Tech Review</div>
+    <div class="v-src-chip"><span class="v-dot" style="background:#d85a30"></span>Hugging Face</div>
+    <div class="v-src-chip"><span class="v-dot" style="background:#1d9e75"></span>The Gradient</div>
+    <div class="v-src-chip"><span class="v-dot" style="background:#ba7517"></span>AI News</div>
+    <div class="v-src-chip"><span class="v-dot" style="background:#a855f7"></span>Le Monde Informatique</div>
   </div>
+
+  <div class="reveal" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem;">
+    <button class="v-filter active" onclick="vFilter('tous',this)">Tous</button>
+    <button class="v-filter" onclick="vFilter('llm',this)">LLM</button>
+    <button class="v-filter" onclick="vFilter('securite',this)">S&eacute;curit&eacute;</button>
+    <button class="v-filter" onclick="vFilter('outils',this)">Outils</button>
+    <button class="v-filter" onclick="vFilter('recherche',this)">Recherche</button>
+    <button class="v-filter" onclick="vFilter('infra',this)">Infra</button>
+  </div>
+
+  <div id="v-grid" class="reveal" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+    <a class="v-card" href="https://openai.com/blog" target="_blank" rel="noopener" data-tag="llm">
+      <div class="v-card-src"><span class="v-dot" style="background:#7f77dd"></span><span>OpenAI Blog</span></div>
+      <div class="v-card-title">GPT-4o : nouvelles capacit&eacute;s multimodales en temps r&eacute;el</div>
+      <div class="v-card-desc">OpenAI pr&eacute;sente des am&eacute;liorations majeures sur la compr&eacute;hension audio et vid&eacute;o, ouvrant la voie &agrave; des assistants IA plus r&eacute;actifs et polyvalents.</div>
+      <div class="v-card-foot"><span class="v-date">Avr. 2025</span><span class="v-tag v-llm">LLM</span></div>
+    </a>
+    <a class="v-card" href="https://www.technologyreview.com/topic/artificial-intelligence/" target="_blank" rel="noopener" data-tag="securite">
+      <div class="v-card-src"><span class="v-dot" style="background:#378add"></span><span>MIT Tech Review</span></div>
+      <div class="v-card-title">Attaques par prompt injection : les risques pour les agents IA</div>
+      <div class="v-card-desc">Des chercheurs d&eacute;montrent comment des entr&eacute;es malveillantes peuvent d&eacute;tourner le comportement d&rsquo;agents autonomes bas&eacute;s sur des LLM en production.</div>
+      <div class="v-card-foot"><span class="v-date">Avr. 2025</span><span class="v-tag v-sec">S&eacute;curit&eacute;</span></div>
+    </a>
+    <a class="v-card" href="https://huggingface.co/blog" target="_blank" rel="noopener" data-tag="outils">
+      <div class="v-card-src"><span class="v-dot" style="background:#d85a30"></span><span>Hugging Face</span></div>
+      <div class="v-card-title">Transformers.js : ex&eacute;cuter des mod&egrave;les IA c&ocirc;t&eacute; navigateur</div>
+      <div class="v-card-desc">La biblioth&egrave;que permet d&rsquo;inf&eacute;rer des mod&egrave;les NLP directement dans le navigateur, sans serveur. Id&eacute;al pour des projets l&eacute;gers et confidentiels.</div>
+      <div class="v-card-foot"><span class="v-date">Mars 2025</span><span class="v-tag v-out">Outils</span></div>
+    </a>
+    <a class="v-card" href="https://thegradient.pub" target="_blank" rel="noopener" data-tag="recherche">
+      <div class="v-card-src"><span class="v-dot" style="background:#1d9e75"></span><span>The Gradient</span></div>
+      <div class="v-card-title">Mixture of Experts : scalabilit&eacute; et efficacit&eacute; des LLM</div>
+      <div class="v-card-desc">L&rsquo;architecture MoE n&rsquo;active qu&rsquo;une partie du r&eacute;seau lors de l&rsquo;inf&eacute;rence, permettant de r&eacute;duire consid&eacute;rablement les co&ucirc;ts de calcul.</div>
+      <div class="v-card-foot"><span class="v-date">Mars 2025</span><span class="v-tag v-rec">Recherche</span></div>
+    </a>
+    <a class="v-card" href="https://www.artificialintelligence-news.com" target="_blank" rel="noopener" data-tag="infra">
+      <div class="v-card-src"><span class="v-dot" style="background:#ba7517"></span><span>AI News</span></div>
+      <div class="v-card-title">NVIDIA Blackwell : l&rsquo;architecture GPU d&eacute;di&eacute;e &agrave; l&rsquo;IA g&eacute;n&eacute;rative</div>
+      <div class="v-card-desc">Le nouveau GPU promet des gains majeurs pour l&rsquo;entra&icirc;nement et l&rsquo;inf&eacute;rence des mod&egrave;les de grande taille, ciblant le march&eacute; cloud et datacenter.</div>
+      <div class="v-card-foot"><span class="v-date">Mars 2025</span><span class="v-tag v-inf">Infra</span></div>
+    </a>
+    <a class="v-card" href="https://www.technologyreview.com/topic/artificial-intelligence/" target="_blank" rel="noopener" data-tag="securite">
+      <div class="v-card-src"><span class="v-dot" style="background:#378add"></span><span>MIT Tech Review</span></div>
+      <div class="v-card-title">IA et deepfakes : d&eacute;tection automatique &agrave; grande &eacute;chelle</div>
+      <div class="v-card-desc">Panorama des outils de d&eacute;tection de contenus synth&eacute;tiques, un enjeu critique pour la cybers&eacute;curit&eacute; et la lutte contre la d&eacute;sinformation.</div>
+      <div class="v-card-foot"><span class="v-date">F&eacute;v. 2025</span><span class="v-tag v-sec">S&eacute;curit&eacute;</span></div>
+    </a>
+    <a class="v-card" href="https://huggingface.co/blog" target="_blank" rel="noopener" data-tag="llm">
+      <div class="v-card-src"><span class="v-dot" style="background:#d85a30"></span><span>Hugging Face</span></div>
+      <div class="v-card-title">Mistral 7B et les LLM open-source : &eacute;tat de l&rsquo;art 2025</div>
+      <div class="v-card-desc">Les mod&egrave;les open-source rattrapent rapidement les mod&egrave;les propri&eacute;taires sur de nombreux benchmarks, d&eacute;mocratisant l&rsquo;acc&egrave;s &agrave; l&rsquo;IA g&eacute;n&eacute;rative.</div>
+      <div class="v-card-foot"><span class="v-date">F&eacute;v. 2025</span><span class="v-tag v-llm">LLM</span></div>
+    </a>
+    <a class="v-card" href="https://www.lemondeinformatique.fr/actualites/intelligence-artificielle" target="_blank" rel="noopener" data-tag="outils">
+      <div class="v-card-src"><span class="v-dot" style="background:#a855f7"></span><span>Le Monde Informatique</span></div>
+      <div class="v-card-title">Copilot for Microsoft 365 : retour d&rsquo;exp&eacute;rience en entreprise</div>
+      <div class="v-card-desc">Analyse des gains de productivit&eacute; r&eacute;els mesur&eacute;s apr&egrave;s d&eacute;ploiement de l&rsquo;IA de Microsoft dans des environnements professionnels fran&ccedil;ais.</div>
+      <div class="v-card-foot"><span class="v-date">Jan. 2025</span><span class="v-tag v-out">Outils</span></div>
+    </a>
+  </div>
+
+  <div id="v-live-header" style="display:flex;align-items:center;gap:12px;margin:2.5rem 0 1rem;">
+    <span style="font-family:'Syne Mono',monospace;font-size:.68rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;">// Flux live &mdash; Hugging Face Blog</span>
+    <span style="flex:1;height:1px;background:var(--border);"></span>
+  </div>
+  <div id="v-live-status" style="font-family:'Syne Mono',monospace;font-size:.7rem;color:rgba(168,85,247,.5);padding:.5rem 0;display:flex;align-items:center;gap:8px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 1.4s infinite;"></span>
+    Chargement du flux RSS...
+  </div>
+  <div id="v-live-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;"></div>
 </section>
 
 <!-- ===== E4 ===== -->
@@ -506,7 +607,7 @@
     <div>
       <div class="contact-item">
         <div class="contact-icon">✉</div>
-        <div><div class="contact-label">EMAIL</div><div class="contact-val">ivannn242006@gmail.com</div></div>
+        <div><div class="contact-label">EMAIL</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2abb4a3acacacf0f6f0f2f2f482a5afa3abaeeca1adaf">[email&#160;protected]</a></div></div>
       </div>
       <div class="contact-item">
         <div class="contact-icon">📞</div>
@@ -551,7 +652,7 @@
   <div style="color:var(--accent2);">ONLINE ◆</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // CURSOR
   const cursor = document.getElementById('cursor');
   const ring   = document.getElementById('cursorRing');
@@ -578,8 +679,49 @@
   window.addEventListener('scroll',()=>{
     let cur='';
     secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-100) cur=s.id; });
-    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
   });
+
+  // VEILLE FILTRES
+  window.vFilter = function(tag, btn) {
+    document.querySelectorAll('.v-filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#v-grid .v-card').forEach(c=>{
+      c.style.display=(tag==='tous'||c.dataset.tag===tag)?'':'none';
+    });
+    const showLive=tag==='tous'||tag==='outils';
+    ['v-live-header','v-live-status','v-live-grid'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.style.display=showLive?'':'none';
+    });
+  };
+
+  // VEILLE RSS LIVE
+  (function(){
+    const API='https://api.rss2json.com/v1/api.json?count=4&rss_url='+encodeURIComponent('https://huggingface.co/blog/feed.xml');
+    const statusEl=document.getElementById('v-live-status');
+    const gridEl=document.getElementById('v-live-grid');
+    function fmtDate(s){try{return new Date(s).toLocaleDateString('fr-FR',{month:'short',year:'numeric'});}catch(e){return '';}}
+    function strip(h){var d=document.createElement('div');d.innerHTML=h;return(d.textContent||d.innerText||'').replace(/\s+/g,' ').trim().slice(0,115)+'\u2026';}
+    fetch(API).then(r=>r.json()).then(data=>{
+      if(!data.items||!data.items.length) throw new Error();
+      statusEl.style.display='none';
+      gridEl.style.background='var(--border)';
+      gridEl.style.border='1px solid var(--border)';
+      data.items.forEach(item=>{
+        const a=document.createElement('a');
+        a.className='v-card';a.href=item.link;a.target='_blank';a.rel='noopener';a.dataset.tag='outils';
+        a.innerHTML='<div class="v-card-src"><span class="v-dot" style="background:#d85a30"></span><span>Hugging Face \u00b7 Live</span></div>'
+          +'<div class="v-card-title">'+item.title+'</div>'
+          +'<div class="v-card-desc">'+strip(item.description||item.content||'')+'</div>'
+          +'<div class="v-card-foot"><span class="v-date">'+fmtDate(item.pubDate)+'</span><span class="v-tag v-out">Outils</span></div>';
+        gridEl.appendChild(a);
+      });
+    }).catch(()=>{
+      statusEl.textContent='// Flux RSS indisponible';
+      statusEl.style.color='rgba(216,90,48,.6)';
+    });
+  })();
 
   // TABS
   document.querySelectorAll('.tab-btn').forEach(btn=>{
