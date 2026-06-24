@@ -157,12 +157,16 @@
   .topic-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
   .rss-badge { font-size: 0.6rem; padding: 0.1rem 0.4rem; border: 1px solid var(--accent3); color: var(--accent3); background: rgba(255,107,53,0.05); font-weight: bold; }
   .veille-content { display: flex; flex-direction: column; gap: 1rem; }
-  .article-card { background: var(--panel); border: 1px solid var(--border); padding: 1.2rem 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; transition: border-color 0.2s; }
+  
+  .article-card { background: var(--panel); border: 1px solid var(--border); padding: 1.2rem 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; transition: border-color 0.2s; position: relative; }
   .article-card:hover { border-color: var(--border2); }
   .article-date { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 1px; white-space: nowrap; margin-top: 0.3rem; width: 75px; }
-  .article-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
-  .article-excerpt { font-size: 0.85rem; color: var(--text3); line-height: 1.6; }
-  .article-source { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent2); margin-top: 0.4rem; display: block; }
+  .article-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; padding-right: 80px; }
+  .article-excerpt { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 0.5rem; }
+  .article-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; border-top: 1px solid rgba(14, 58, 82, 0.3); padding-top: 0.5rem; }
+  .article-source { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text3); }
+  .rss-link-btn { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent2); text-decoration: none; border: 1px solid rgba(0, 255, 136, 0.3); padding: 0.2rem 0.5rem; background: rgba(0, 255, 136, 0.02); transition: all 0.2s; cursor: none; }
+  .rss-link-btn:hover { background: rgba(0, 255, 136, 0.1); border-color: var(--accent2); color: #fff; text-shadow: var(--glow2); }
 
   .e4-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .e4-card { background: var(--panel); border: 1px solid var(--border); padding: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s; }
@@ -232,7 +236,7 @@
     .bts-grid, .options-row, .e4-grid, .contact-layout, .ressources-layout { grid-template-columns: 1fr; }
     .veille-layout { grid-template-columns: 1fr; }
     nav { padding: 0 1rem; }
-    .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.6 ... }
+    .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.6 }
     .nav-status { display: none; }
     footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
   }
@@ -472,41 +476,29 @@
   </div>
   <div class="veille-layout reveal">
     <div class="veille-topics">
-      <div class="topic-item active">
+      <div class="topic-item active" data-target="ia">
         <div class="topic-left"><span class="topic-dot"></span>IA & INFRASTRUCTURES</div>
         <span class="rss-badge">FLUX RSS</span>
       </div>
-      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>CYBERSÉCURITÉ</div></div>
-      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>CLOUD & VIRTUALISATION</div></div>
-      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>RÉSEAUX</div></div>
-      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>LINUX / OPEN SOURCE</div></div>
-      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>WINDOWS SERVER</div></div>
+      <div class="topic-item" data-target="cyber">
+        <div class="topic-left"><span class="topic-dot"></span>CYBERSÉCURITÉ</div>
+      </div>
+      <div class="topic-item" data-target="cloud">
+        <div class="topic-left"><span class="topic-dot"></span>CLOUD & VIRTUALISATION</div>
+      </div>
+      <div class="topic-item" data-target="reseaux">
+        <div class="topic-left"><span class="topic-dot"></span>RÉSEAUX</div>
+      </div>
+      <div class="topic-item" data-target="linux">
+        <div class="topic-left"><span class="topic-dot"></span>LINUX / OPEN SOURCE</div>
+      </div>
+      <div class="topic-item" data-target="windows">
+        <div class="topic-left"><span class="topic-dot"></span>WINDOWS SERVER</div>
+      </div>
     </div>
-    <div class="veille-content">
-      <div class="article-card">
-        <div class="article-date">AVRIL 2026</div>
-        <div>
-          <div class="article-title">L'essor des AIOps : Comment l'IA transforme la supervision des réseaux</div>
-          <div class="article-excerpt">Analyse de l'intégration des modèles prédictifs dans les outils de monitoring réseau pour anticiper les pannes d'infrastructure avant l'impact utilisateur.</div>
-          <span class="article-source">Source : Flux RSS - Le Monde Informatique</span>
-        </div>
-      </div>
-      <div class="article-card">
-        <div class="article-date">MAI 2026</div>
-        <div>
-          <div class="article-title">Déploiement de LLM souverains locaux sur architectures privées Linux</div>
-          <div class="article-excerpt">Étude des solutions d'hébergement d'IA génératives en local (Ollama / Llama 3) au sein des datacenters d'entreprise pour garantir la confidentialité des données.</div>
-          <span class="article-source">Source : Flux RSS - ZDNet France</span>
-        </div>
-      </div>
-      <div class="article-card">
-        <div class="article-date">JUIN 2026</div>
-        <div>
-          <div class="article-title">Sécurisation des endpoints face aux attaques automatisées par IA</div>
-          <div class="article-excerpt">Évolution des stratégies de défense des administrateurs système SISR face aux ransomwares polymorphes générés en temps réel par des agents intelligents.</div>
-          <span class="article-source">Source : Flux RSS - Cert-FR / Cyberveille</span>
-        </div>
-      </div>
+    
+    <div class="veille-content" id="veilleContent">
+      <!-- Rempli dynamiquement par JS -->
     </div>
   </div>
 </section>
@@ -642,6 +634,7 @@
 </footer>
 
 <script>
+  // Script Curseur personnalisé
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
 
@@ -655,18 +648,182 @@
     }, 50);
   });
 
-  const links = document.querySelectorAll('a, button, .topic-item');
-  links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      cursorRing.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      cursorRing.style.borderColor = 'var(--accent2)';
+  function applyCursorEffects() {
+    const links = document.querySelectorAll('a, button, .topic-item, .rss-link-btn');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        cursorRing.style.transform = 'translate(-50%, -50%) scale(1.4)';
+        cursorRing.style.borderColor = 'var(--accent2)';
+      });
+      link.addEventListener('mouseleave', () => {
+        cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursorRing.style.borderColor = 'rgba(0,212,255,0.5)';
+      });
     });
-    link.addEventListener('mouseleave', () => {
-      cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursorRing.style.borderColor = 'rgba(0,212,255,0.5)';
+  }
+
+  // Objets contenant les données de veille technologique
+  const articlesData = {
+    ia: [
+      {
+        date: "AVRIL 2026",
+        title: "L'essor des AIOps : Comment l'IA transforme la supervision des réseaux",
+        excerpt: "Analyse de l'intégration des modèles prédictifs dans les outils de monitoring réseau pour anticiper les pannes d'infrastructure avant l'impact utilisateur.",
+        source: "Le Monde Informatique",
+        url: "https://www.lemondeinformatique.fr/"
+      },
+      {
+        date: "MAI 2026",
+        title: "Déploiement de LLM souverains locaux sur architectures privées Linux",
+        excerpt: "Étude des solutions d'hébergement d'IA génératives en local (Ollama / Llama 3) au sein des datacenters d'entreprise pour garantir la confidentialité des données.",
+        source: "ZDNet France",
+        url: "https://www.zdnet.fr/"
+      },
+      {
+        date: "JUIN 2026",
+        title: "Sécurisation des endpoints face aux attaques automatisées par IA",
+        excerpt: "Évolution des stratégies de défense des cyber-administrateurs face aux ransomwares polymorphes générés en temps réel par des agents malveillants intelligents.",
+        source: "Cert-FR / Cyberveille",
+        url: "https://www.cert.ssi.gouv.fr/"
+      }
+    ],
+    cyber: [
+      {
+        date: "MAI 2026",
+        title: "Vulnérabilités Zero-Day majeures sur les passerelles VPN d'entreprise",
+        excerpt: "Analyse des correctifs d'urgence à déployer sur les infrastructures d'accès distant suite à la découverte de failles critiques exploitées activement.",
+        source: "ANSSI Cyberveille",
+        url: "https://www.cyberveille-sante.gouv.fr/"
+      },
+      {
+        date: "JUIN 2026",
+        title: "L'adoption du Zero Trust Architecture (ZTA) dans les PME françaises",
+        excerpt: "Retour d'expérience sur la mise en œuvre pratique de politiques de moindre privilège et de micro-segmentation sans impacter la productivité.",
+        source: "Solutions Numériques",
+        url: "https://www.solutions-numeriques.com/"
+      }
+    ],
+    cloud: [
+      {
+        date: "AVRIL 2026",
+        title: "Stratégies Multi-Cloud et interopérabilité des hyperviseurs",
+        excerpt: "Comment architecturer des infrastructures hybrides résilientes en orchestrant des clusters Kubernetes entre environnements On-Premise et Cloud Public.",
+        source: "L'Informaticien",
+        url: "https://www.linformaticien.com/"
+      },
+      {
+        date: "JUIN 2026",
+        title: "Optimisation des coûts FinOps sur les architectures de serveurs virtualisés",
+        excerpt: "Analyse des métriques essentielles pour réduire l'empreinte matérielle sous VMware vSphere et Proxmox VE en ajustant finement l'allocation CPU/RAM.",
+        source: "Silicon.fr",
+        url: "https://www.silicon.fr/"
+      }
+    ],
+    reseaux: [
+      {
+        date: "MARS 2026",
+        title: "Transition globale vers IPv6 : Bonnes pratiques pour l'administrateur SISR",
+        excerpt: "Guide méthodologique sur le double-stacking et la configuration des plans d'adressage IPv6 au sein des réseaux locaux d'entreprise.",
+        source: "Network World",
+        url: "https://www.networkworld.com/"
+      },
+      {
+        date: "MAI 2026",
+        title: "Wi-Fi 7 en entreprise : Planification de canaux et gestion des interférences",
+        excerpt: "Étude de la bande des 6 GHz et des gains de latence offerts par le Wi-Fi 7 pour les terminaux mobiles métiers à forte densité de données.",
+        source: "Flux IT Pro",
+        url: "https://www.itpro.fr/"
+      }
+    ],
+    linux: [
+      {
+        date: "AVRIL 2026",
+        title: "Sécurisation fine du noyau Linux avec eBPF",
+        excerpt: "Exploration des modules d'audit et de filtrage réseau basés sur eBPF pour intercepter les anomalies de conteneurs en temps réel sans surcoût de performance.",
+        source: "Linux Pratique",
+        url: "https://www.linux-pratique.com/"
+      },
+      {
+        date: "JUIN 2026",
+        title: "Migration de CentOS vers Rocky Linux / AlmaLinux en production",
+        excerpt: "Scripts d'automatisation et retours d'expérience sur le changement de distribution serveur tout en maintenant la continuité des services Apache et Bind9.",
+        source: "Journal du Net IT",
+        url: "https://www.journaldunet.com/"
+      }
+    ],
+    windows: [
+      {
+        date: "FÉVRIER 2026",
+        title: "Durcissement (Hardening) d'Active Directory Domain Services",
+        excerpt: "Mise en œuvre des directives de sécurité de l'ANSSI pour protéger l'annuaire contre les attaques de type Kerberoasting et DCSync.",
+        source: "IT-Connect",
+        url: "https://www.it-connect.fr/"
+      },
+      {
+        date: "MAI 2026",
+        title: "Automatisation des déploiements Windows Server avec PowerShell DSC",
+        excerpt: "Création de baselines de configuration reproductibles pour standardiser les rôles IIS, DHCP et DNS sur l'ensemble d'un parc de serveurs.",
+        source: "MSFT Tech Community",
+        url: "https://techcommunity.microsoft.com/"
+      }
+    ]
+  };
+
+  // Fonction pour charger les articles d'une catégorie donnée
+  function loadCategory(catKey) {
+    const container = document.getElementById('veilleContent');
+    container.innerHTML = ''; // Nettoyer l'existant
+    
+    const list = articlesData[catKey] || [];
+    
+    if(list.length === 0) {
+      container.innerHTML = '<div style="color:var(--text3); font-family:\'Share Tech Mono\'; padding: 2rem;">Aucun article disponible pour cette catégorie.</div>';
+      return;
+    }
+    
+    list.forEach(art => {
+      const card = document.createElement('div');
+      card.className = 'article-card';
+      card.innerHTML = `
+        <div class="article-date">${art.date}</div>
+        <div style="flex: 1;">
+          <div class="article-title">${art.title}</div>
+          <div class="article-excerpt">${art.excerpt}</div>
+          <div class="article-footer">
+            <span class="article-source">Source : Flux RSS - ${art.source}</span>
+            <a href="${art.url}" target="_blank" class="rss-link-btn">Accéder au site ↗</a>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+    
+    // Ré-appliquer les effets de survol du curseur sur les nouveaux boutons générés
+    applyCursorEffects();
+  }
+
+  // Événements sur les onglets de catégories
+  const topicItems = document.querySelectorAll('.topic-item');
+  topicItems.forEach(item => {
+    item.addEventListener('click', function() {
+      // Retirer la classe active de partout
+      topicItems.forEach(t => t.classList.remove('active'));
+      // L'ajouter sur l'élément cliqué
+      this.classList.add('active');
+      
+      // Charger le contenu
+      const targetCat = this.getAttribute('data-target');
+      loadCategory(targetCat);
     });
   });
 
+  // Initialisation au chargement de la page : charger par défaut la catégorie 'ia'
+  window.addEventListener('DOMContentLoaded', () => {
+    loadCategory('ia');
+    revealOnScroll();
+  });
+
+  // Gestion du scroll reveal
   const revealElements = document.querySelectorAll('.reveal');
   const revealOnScroll = () => {
     revealElements.forEach(el => {
@@ -677,7 +834,6 @@
     });
   };
   window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', revealOnScroll);
 </script>
 
 </body>
