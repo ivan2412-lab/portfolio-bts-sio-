@@ -148,17 +148,21 @@
   .mission-mode::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
   .ressource-link { padding: 0.3rem 0.7rem; font-size: 0.65rem; text-decoration: none; }
 
+  /* VEILLE */
   .veille-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
   .veille-topics { display: flex; flex-direction: column; gap: 0.8rem; }
-  .topic-item { background: var(--panel); border: 1px solid var(--border); padding: 1rem 1.2rem; cursor: none; transition: all 0.2s; display: flex; align-items: center; gap: 0.8rem; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text3); letter-spacing: 1px; }
+  .topic-item { background: var(--panel); border: 1px solid var(--border); padding: 1rem 1.2rem; cursor: none; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text3); letter-spacing: 1px; }
   .topic-item.active, .topic-item:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.05); }
+  .topic-left { display: flex; align-items: center; gap: 0.8rem; }
   .topic-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .rss-badge { font-size: 0.6rem; padding: 0.1rem 0.4rem; border: 1px solid var(--accent3); color: var(--accent3); background: rgba(255,107,53,0.05); font-weight: bold; }
   .veille-content { display: flex; flex-direction: column; gap: 1rem; }
   .article-card { background: var(--panel); border: 1px solid var(--border); padding: 1.2rem 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; transition: border-color 0.2s; }
   .article-card:hover { border-color: var(--border2); }
-  .article-date { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 1px; white-space: nowrap; margin-top: 0.3rem; }
+  .article-date { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent); letter-spacing: 1px; white-space: nowrap; margin-top: 0.3rem; width: 75px; }
   .article-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
   .article-excerpt { font-size: 0.85rem; color: var(--text3); line-height: 1.6; }
+  .article-source { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--accent2); margin-top: 0.4rem; display: block; }
 
   .e4-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .e4-card { background: var(--panel); border: 1px solid var(--border); padding: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s; }
@@ -228,7 +232,7 @@
     .bts-grid, .options-row, .e4-grid, .contact-layout, .ressources-layout { grid-template-columns: 1fr; }
     .veille-layout { grid-template-columns: 1fr; }
     nav { padding: 0 1rem; }
-    .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.6rem; }
+    .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.6 ... }
     .nav-status { display: none; }
     footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
   }
@@ -468,33 +472,39 @@
   </div>
   <div class="veille-layout reveal">
     <div class="veille-topics">
-      <div class="topic-item active"><span class="topic-dot"></span>CYBERSÉCURITÉ</div>
-      <div class="topic-item"><span class="topic-dot"></span>CLOUD & VIRTUALISATION</div>
-      <div class="topic-item"><span class="topic-dot"></span>RÉSEAUX</div>
-      <div class="topic-item"><span class="topic-dot"></span>LINUX / OPEN SOURCE</div>
-      <div class="topic-item"><span class="topic-dot"></span>WINDOWS SERVER</div>
-      <div class="topic-item"><span class="topic-dot"></span>AUTRE THÈME</div>
+      <div class="topic-item active">
+        <div class="topic-left"><span class="topic-dot"></span>IA & INFRASTRUCTURES</div>
+        <span class="rss-badge">FLUX RSS</span>
+      </div>
+      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>CYBERSÉCURITÉ</div></div>
+      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>CLOUD & VIRTUALISATION</div></div>
+      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>RÉSEAUX</div></div>
+      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>LINUX / OPEN SOURCE</div></div>
+      <div class="topic-item"><div class="topic-left"><span class="topic-dot"></span>WINDOWS SERVER</div></div>
     </div>
     <div class="veille-content">
       <div class="article-card">
-        <div class="article-date">JAN 2025</div>
+        <div class="article-date">AVRIL 2026</div>
         <div>
-          <div class="article-title">Titre de votre article de veille</div>
-          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille.</div>
+          <div class="article-title">L'essor des AIOps : Comment l'IA transforme la supervision des réseaux</div>
+          <div class="article-excerpt">Analyse de l'intégration des modèles prédictifs dans les outils de monitoring réseau pour anticiper les pannes d'infrastructure avant l'impact utilisateur.</div>
+          <span class="article-source">Source : Flux RSS - Le Monde Informatique</span>
         </div>
       </div>
       <div class="article-card">
-        <div class="article-date">FÉV 2025</div>
+        <div class="article-date">MAI 2026</div>
         <div>
-          <div class="article-title">Titre de votre article de veille</div>
-          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille.</div>
+          <div class="article-title">Déploiement de LLM souverains locaux sur architectures privées Linux</div>
+          <div class="article-excerpt">Étude des solutions d'hébergement d'IA génératives en local (Ollama / Llama 3) au sein des datacenters d'entreprise pour garantir la confidentialité des données.</div>
+          <span class="article-source">Source : Flux RSS - ZDNet France</span>
         </div>
       </div>
       <div class="article-card">
-        <div class="article-date">MAR 2025</div>
+        <div class="article-date">JUIN 2026</div>
         <div>
-          <div class="article-title">Titre de votre article de veille</div>
-          <div class="article-excerpt">Résumé de l'article ou de l'information trouvée lors de votre veille.</div>
+          <div class="article-title">Sécurisation des endpoints face aux attaques automatisées par IA</div>
+          <div class="article-excerpt">Évolution des stratégies de défense des administrateurs système SISR face aux ransomwares polymorphes générés en temps réel par des agents intelligents.</div>
+          <span class="article-source">Source : Flux RSS - Cert-FR / Cyberveille</span>
         </div>
       </div>
     </div>
@@ -632,7 +642,6 @@
 </footer>
 
 <script>
-  // Animation des curseurs personnalisés
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
 
@@ -646,7 +655,6 @@
     }, 50);
   });
 
-  // Effet au survol des liens
   const links = document.querySelectorAll('a, button, .topic-item');
   links.forEach(link => {
     link.addEventListener('mouseenter', () => {
@@ -659,7 +667,6 @@
     });
   });
 
-  // Effet de révélation au défilement (Scroll Reveal)
   const revealElements = document.querySelectorAll('.reveal');
   const revealOnScroll = () => {
     revealElements.forEach(el => {
